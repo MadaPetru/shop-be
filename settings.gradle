@@ -3,4 +3,6 @@ include 'shop-app'
 include 'security-api'
 include 'security-app'
 include 'shop-api'
+include 'library-api'
+include 'library-app'
 
