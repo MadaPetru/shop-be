@@ -1,0 +1,6 @@
+rootProject.name = 'shop'
+include 'shop-app'
+include 'security-api'
+include 'security-app'
+include 'shop-api'
+
