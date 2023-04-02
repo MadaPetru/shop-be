@@ -1,18 +1,4 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.0.5'
-    id 'io.spring.dependency-management' version '1.1.0'
-}
-
-group = 'ro.adi'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
 
 repositories {
     mavenCentral()
@@ -21,9 +7,8 @@ repositories {
 dependencies {
     implementation project(':shop-api')
     implementation project(':library-app')
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

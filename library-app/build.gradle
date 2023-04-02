@@ -1,32 +1,13 @@
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
-
-plugins {
-    id 'org.springframework.boot' version '3.0.5' apply false
-    id 'java'
-    id 'io.spring.dependency-management' version '1.1.0'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom SpringBootPlugin.BOM_COORDINATES
-    }
-}
-
-group 'ro.adi'
-version '0.0.1-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.projectlombok:lombok'
+    api 'org.projectlombok:lombok'
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-}
-
-test {
-    useJUnitPlatform()
 }

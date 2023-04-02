@@ -1,0 +1,8 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'org.projectlombok:lombok'
+    api 'org.projectlombok:lombok'
+}

@@ -1,18 +1,8 @@
-plugins {
-    id 'java'
-}
-
-group 'ro.adi'
-version '0.0.1-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation project(':library-api')
-}
-
-test {
-    useJUnitPlatform()
+    implementation project(':common')
 }

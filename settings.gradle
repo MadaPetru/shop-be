@@ -5,4 +5,5 @@ include 'security-app'
 include 'shop-api'
 include 'library-api'
 include 'library-app'
+include 'common'
 
