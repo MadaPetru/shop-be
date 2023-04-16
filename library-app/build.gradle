@@ -3,8 +3,6 @@ repositories {
 }
 
 dependencies {
-    api 'org.projectlombok:lombok'
-    api 'org.projectlombok:lombok'
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     runtimeOnly 'org.postgresql:postgresql'

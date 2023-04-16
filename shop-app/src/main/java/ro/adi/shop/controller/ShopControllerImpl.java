@@ -1,6 +1,6 @@
-package ro.adi.shop;
+package ro.adi.shop.controller;
 
-import ro.adi.shop.controller.ShopController;
+import ro.adi.shop.ShopController;
 
 import java.util.ArrayList;
 

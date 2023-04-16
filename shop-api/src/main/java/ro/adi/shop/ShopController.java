@@ -1,4 +1,4 @@
-package ro.adi.shop.controller;
+package ro.adi.shop;
 
 import java.util.ArrayList;
 
