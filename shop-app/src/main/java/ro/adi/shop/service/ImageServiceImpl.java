@@ -11,6 +11,7 @@ import ro.adi.shop.jpa.repository.ImageRepository;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -22,13 +23,14 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
 
     @Override
-    public void save(MultipartFile file) {
-        try {
-            String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-            createFileInResourceLoader(fileName, file.getBytes());
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+    public void save(List<MultipartFile> files) {
+        for (MultipartFile file : files)
+            try {
+                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+                createFileInResourceLoader(fileName, file.getBytes());
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
     }
 
 

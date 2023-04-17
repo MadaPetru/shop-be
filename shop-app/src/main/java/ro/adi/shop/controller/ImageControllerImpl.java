@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 import ro.adi.shop.ImageController;
 import ro.adi.shop.service.ImageService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class ImageControllerImpl implements ImageController {
@@ -15,7 +17,7 @@ public class ImageControllerImpl implements ImageController {
 
     @Override
     @CrossOrigin(origins = "http://localhost:4200")
-    public void save(MultipartFile file) {
-        imageService.save(file);
+    public void save(List<MultipartFile> files) {
+        imageService.save(files);
     }
 }
