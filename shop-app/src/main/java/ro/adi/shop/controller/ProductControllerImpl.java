@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ro.adi.shop.ProductController;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
+import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
 import ro.adi.shop.service.ProductService;
 
@@ -30,5 +31,10 @@ public class ProductControllerImpl implements ProductController {
     @Override
     public void save(CreateProductRequestDto requestDto) {
         productService.create(requestDto);
+    }
+
+    @Override
+    public void update(UpdateProductRequestDto requestDto) {
+        productService.update(requestDto);
     }
 }

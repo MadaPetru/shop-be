@@ -6,10 +6,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ro.adi.shop.converter.ProductConverter;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
+import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
+import ro.adi.shop.jpa.entity.Image;
+import ro.adi.shop.jpa.entity.Product;
+import ro.adi.shop.jpa.repository.ImageRepository;
 import ro.adi.shop.jpa.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -18,6 +23,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ImageRepository imageRepository;
 
     @Override
     public List<ProductResponseDto> findAll() {
@@ -31,6 +37,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void create(CreateProductRequestDto requestDto) {
-        productRepository.save(ProductConverter.convertToEntity(requestDto));
+        List<String> fileNames = requestDto.getFileNames();
+        Set<Image> images = imageRepository.findByNameIn(fileNames);
+        Product entity = ProductConverter.convertToEntity(requestDto);
+        entity.setImages(images);
+        productRepository.save(entity);
+    }
+
+    @Override
+    public void update(UpdateProductRequestDto requestDto) {
+        List<String> fileNames = requestDto.getFileNames();
+        Set<Image> images = imageRepository.findByNameIn(fileNames);
+        Product entity = ProductConverter.convertToEntity(requestDto);
+        entity.setImages(images);
+        productRepository.save(entity);
     }
 }

@@ -3,6 +3,8 @@ package ro.adi.shop.dto.response;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Builder
 @Data
 public class ProductResponseDto {
@@ -11,4 +13,5 @@ public class ProductResponseDto {
     private String name;
     private float price;
     private int quantity;
+    private List<String> images;
 }
