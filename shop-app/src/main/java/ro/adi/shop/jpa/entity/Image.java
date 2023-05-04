@@ -10,7 +10,8 @@ import lombok.Setter;
 public class Image {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "image_gen",sequenceName = "image_sequence",allocationSize = 32)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "image_gen")
     private long id;
     @Column
     private String name;

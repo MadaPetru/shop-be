@@ -37,23 +37,19 @@ public class ImageServiceImpl implements ImageService {
     public void createFileInResourceLoader(String fileName, byte[] content) throws IOException {
         String pathFile = "shop-app/src/main/resources/images/" + fileName;
         File file = new File(pathFile);
-        boolean created = file.createNewFile();
+        boolean isCreated = file.createNewFile();
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             fileOutputStream.write(content);
         }
-        if (isCreated(created)) {
-            createImageEntity(fileName, pathFile);
+        if (isCreated) {
+            createNewImageEntity(fileName, pathFile);
         }
     }
 
-    private void createImageEntity(String fileName, String pathFile) {
+    private void createNewImageEntity(String fileName, String pathFile) {
         Image entity = new Image();
         entity.setName(fileName);
         entity.setPath(pathFile);
         imageRepository.save(entity);
-    }
-
-    private boolean isCreated(boolean created) {
-        return created;
     }
 }
