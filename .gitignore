@@ -2,6 +2,7 @@ HELP.md
 .png
 .jpg
 !**/src/main/**/resources/images/
+images/
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
