@@ -1,7 +1,10 @@
 package ro.adi.shop.converter;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
+import ro.adi.shop.dto.request.SearchAllPageableRequest;
 import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
 import ro.adi.shop.jpa.entity.Image;
@@ -37,6 +40,11 @@ public class ProductConverter {
         entity.setQuantity(requestDto.getQuantity());
         entity.setId(requestDto.getId());
         return entity;
+    }
+
+    public PageRequest convertToPageable(SearchAllPageableRequest request) {
+        //TODO have to implement with predicate to search after a field to be sorted if needed in future
+        return PageRequest.of(request.getPageNumber(), request.getPageSize(), Sort.unsorted());
     }
 
     private ProductResponseDto convertToProductResponseDto(Product product) {
