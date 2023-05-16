@@ -1,6 +1,7 @@
 package ro.adi.shop.dto.request;
 
 import lombok.*;
+import org.springframework.data.domain.PageRequest;
 
 @Data
 @NoArgsConstructor
@@ -10,7 +11,5 @@ import lombok.*;
 @Builder
 public class SearchAllPageableRequest {
 
-    private String sort;
-    private int pageSize;
-    private int pageNumber;
+    private PageRequest pageable;
 }

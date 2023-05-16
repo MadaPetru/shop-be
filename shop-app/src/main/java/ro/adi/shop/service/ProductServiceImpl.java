@@ -3,7 +3,6 @@ package ro.adi.shop.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +28,9 @@ public class ProductServiceImpl implements ProductService {
     private final ImageRepository imageRepository;
 
     @Override
-    public List<ProductResponseDto> findAll(Pageable pageable) {
+    public Page<ProductResponseDto> findAll(Pageable pageable) {
         Page<Product> pageableResult = productRepository.findAll(pageable);
-        return ProductConverter.convertToProductResponseDto(productRepository.findAll());
+        return ProductConverter.convertToProductPageableResponseDto(pageableResult);
     }
 
     @Override

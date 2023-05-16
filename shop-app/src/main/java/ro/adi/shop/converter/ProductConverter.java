@@ -1,6 +1,8 @@
 package ro.adi.shop.converter;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
@@ -21,8 +23,10 @@ import java.util.stream.Collectors;
 @UtilityClass
 public class ProductConverter {
 
-    public List<ProductResponseDto> convertToProductResponseDto(List<Product> products) {
-        return products.stream().map(ProductConverter::convertToProductResponseDto).collect(Collectors.toList());
+    public Page<ProductResponseDto> convertToProductPageableResponseDto(Page<Product> products) {
+        var list = products.getContent();
+        var responseDto = convertToProductResponseDto(list);
+        return new PageImpl<>(responseDto, products.getPageable(), products.getTotalElements());
     }
 
     public Product convertToEntity(CreateProductRequestDto requestDto) {
@@ -42,9 +46,8 @@ public class ProductConverter {
         return entity;
     }
 
-    public PageRequest convertToPageable(SearchAllPageableRequest request) {
-        //TODO have to implement with predicate to search after a field to be sorted if needed in future
-        return PageRequest.of(request.getPageNumber(), request.getPageSize(), Sort.unsorted());
+    private List<ProductResponseDto> convertToProductResponseDto(List<Product> products) {
+        return products.stream().map(ProductConverter::convertToProductResponseDto).collect(Collectors.toList());
     }
 
     private ProductResponseDto convertToProductResponseDto(Product product) {

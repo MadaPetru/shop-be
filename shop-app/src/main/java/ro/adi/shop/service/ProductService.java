@@ -1,5 +1,6 @@
 package ro.adi.shop.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-    List<ProductResponseDto> findAll(Pageable pageable);
+    Page<ProductResponseDto> findAll(Pageable pageable);
 
     void deleteById(long id);
 

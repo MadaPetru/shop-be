@@ -1,20 +1,15 @@
 package ro.adi.shop.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ro.adi.shop.ProductController;
-import ro.adi.shop.converter.ProductConverter;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
 import ro.adi.shop.dto.request.SearchAllPageableRequest;
 import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
 import ro.adi.shop.service.ProductService;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,9 +19,8 @@ public class ProductControllerImpl implements ProductController {
     private final ProductService productService;
 
     @Override
-    public List<ProductResponseDto> findAll(SearchAllPageableRequest request) {
-        PageRequest pageable = ProductConverter.convertToPageable(request);
-        return productService.findAll(pageable);
+    public Page<ProductResponseDto> findAll(SearchAllPageableRequest request) {
+        return productService.findAll(request.getPageable());
     }
 
     @Override
