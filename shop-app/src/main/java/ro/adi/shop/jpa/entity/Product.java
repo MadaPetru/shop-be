@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -13,8 +13,8 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @SequenceGenerator(name = "product_gen",sequenceName = "product_sequence",allocationSize = 32)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "product_gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_gen")
+    @SequenceGenerator(name = "product_gen", sequenceName = "product_sequence", allocationSize = 32,initialValue = 100)
     private long id;
     @Column
     private String name;
@@ -23,7 +23,7 @@ public class Product {
     @Column
     private int quantity;
     @OneToMany
-    private Set<Image> images;
+    private List<Image> images;
 
     @Override
     public boolean equals(Object o) {

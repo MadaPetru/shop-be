@@ -3,10 +3,7 @@ package ro.adi.shop.converter;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
-import ro.adi.shop.dto.request.SearchAllPageableRequest;
 import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
 import ro.adi.shop.jpa.entity.Image;
@@ -17,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -50,8 +46,8 @@ public class ProductConverter {
         return products.stream().map(ProductConverter::convertToProductResponseDto).collect(Collectors.toList());
     }
 
-    private ProductResponseDto convertToProductResponseDto(Product product) {
-        Set<Image> images = product.getImages();
+    public ProductResponseDto convertToProductResponseDto(Product product) {
+        var images = product.getImages();
         List<String> bytes = images.stream().map(image -> {
             try {
                 return getImageAsByte(image);

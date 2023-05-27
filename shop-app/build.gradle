@@ -8,6 +8,7 @@ dependencies {
     implementation project(':shop-api')
     implementation project(':library-app')
     implementation project(':common')
+    implementation group: 'org.flywaydb', name: 'flyway-core', version: '9.19.1'
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
 

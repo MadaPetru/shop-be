@@ -29,8 +29,8 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public void save(CreateProductRequestDto requestDto) {
-        productService.create(requestDto);
+    public ProductResponseDto save(CreateProductRequestDto requestDto) {
+        return productService.create(requestDto);
     }
 
     @Override

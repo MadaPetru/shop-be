@@ -17,7 +17,7 @@ public interface ProductController {
     void deleteById(@PathVariable long id);
 
     @PostMapping
-    void save(@RequestBody CreateProductRequestDto requestDto);
+    ProductResponseDto save(@RequestBody CreateProductRequestDto requestDto);
 
     @PutMapping
     void update(@RequestBody UpdateProductRequestDto requestDto);

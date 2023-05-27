@@ -10,13 +10,11 @@ import ro.adi.shop.converter.ProductConverter;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
 import ro.adi.shop.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.dto.response.ProductResponseDto;
-import ro.adi.shop.jpa.entity.Image;
 import ro.adi.shop.jpa.entity.Product;
 import ro.adi.shop.jpa.repository.ImageRepository;
 import ro.adi.shop.jpa.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -39,18 +37,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void create(CreateProductRequestDto requestDto) {
+    public ProductResponseDto create(CreateProductRequestDto requestDto) {
         List<String> fileNames = requestDto.getFileNames();
-        Set<Image> images = imageRepository.findByNameIn(fileNames);
+        var images = imageRepository.findByNameIn(fileNames);
         Product entity = ProductConverter.convertToEntity(requestDto);
         entity.setImages(images);
-        productRepository.save(entity);
+        Product saved = productRepository.save(entity);
+        return ProductConverter.convertToProductResponseDto(saved);
     }
 
     @Override
     public void update(UpdateProductRequestDto requestDto) {
         List<String> fileNames = requestDto.getFileNames();
-        Set<Image> images = imageRepository.findByNameIn(fileNames);
+        var images = imageRepository.findByNameIn(fileNames);
         Product entity = ProductConverter.convertToEntity(requestDto);
         entity.setImages(images);
         productRepository.save(entity);
