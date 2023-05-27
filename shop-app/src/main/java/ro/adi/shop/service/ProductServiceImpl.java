@@ -32,8 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(long id) {
-        productRepository.deleteById(id);
+    public boolean deleteById(long id) {
+        return productRepository.deleteById(id) != 0;
     }
 
     @Override
@@ -47,11 +47,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(UpdateProductRequestDto requestDto) {
+    public ProductResponseDto update(UpdateProductRequestDto requestDto) {
         List<String> fileNames = requestDto.getFileNames();
         var images = imageRepository.findByNameIn(fileNames);
         Product entity = ProductConverter.convertToEntity(requestDto);
         entity.setImages(images);
-        productRepository.save(entity);
+        Product saved = productRepository.save(entity);
+        return ProductConverter.convertToProductResponseDto(saved);
     }
 }

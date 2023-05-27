@@ -12,9 +12,9 @@ public interface ProductService {
 
     Page<ProductResponseDto> findAll(Pageable pageable);
 
-    void deleteById(long id);
+    boolean deleteById(long id);
 
     ProductResponseDto create(CreateProductRequestDto requestDto);
 
-    void update(UpdateProductRequestDto requestDto);
+    ProductResponseDto update(UpdateProductRequestDto requestDto);
 }

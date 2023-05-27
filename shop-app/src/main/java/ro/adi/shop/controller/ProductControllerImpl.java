@@ -24,8 +24,8 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public void deleteById(long id) {
-        productService.deleteById(id);
+    public boolean deleteById(long id) {
+        return productService.deleteById(id);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public void update(UpdateProductRequestDto requestDto) {
-        productService.update(requestDto);
+    public ProductResponseDto update(UpdateProductRequestDto requestDto) {
+        return productService.update(requestDto);
     }
 }

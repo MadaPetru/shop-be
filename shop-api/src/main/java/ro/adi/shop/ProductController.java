@@ -14,11 +14,11 @@ public interface ProductController {
     Page<ProductResponseDto> findAll(@RequestBody SearchAllPageableRequest pageable);
 
     @DeleteMapping(path = "/{id}")
-    void deleteById(@PathVariable long id);
+    boolean deleteById(@PathVariable long id);
 
     @PostMapping
     ProductResponseDto save(@RequestBody CreateProductRequestDto requestDto);
 
     @PutMapping
-    void update(@RequestBody UpdateProductRequestDto requestDto);
+    ProductResponseDto update(@RequestBody UpdateProductRequestDto requestDto);
 }
