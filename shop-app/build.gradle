@@ -6,14 +6,13 @@ repositories {
 
 dependencies {
     implementation project(':shop-api')
-    implementation project(':library-app')
-    implementation project(':common')
-    implementation group: 'org.flywaydb', name: 'flyway-core', version: '9.19.1'
-    compileOnly 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-
-    testCompileOnly 'org.projectlombok:lombok:1.18.26'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    implementation(project(':library-app')) {
+        transitive = true
+    }
+    implementation(project(':common')) {
+        transitive = true
+        getDependencies()
+    }
 }
 
 tasks.named('test') {

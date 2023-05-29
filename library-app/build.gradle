@@ -3,7 +3,7 @@ repositories {
 }
 
 dependencies {
-    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api group: 'org.flywaydb', name: 'flyway-core', version: '9.19.1'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
