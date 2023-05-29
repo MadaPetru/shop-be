@@ -12,9 +12,19 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
 //    apply plugin: 'checkstyle'
 
+    repositories {
+        mavenCentral()
+    }
+
     dependencyManagement {
         imports {
             mavenBom("org.springframework.boot:spring-boot-dependencies:3.0.5")
         }
+    }
+    dependencies {
+        compileOnly libs.lombok
+        annotationProcessor libs.lombok
+        testCompileOnly libs.lombok
+        testAnnotationProcessor libs.lombok
     }
 }

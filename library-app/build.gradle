@@ -1,11 +1,11 @@
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
 }
 
 dependencies {
-    api group: 'org.flywaydb', name: 'flyway-core', version: '9.19.1'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-    runtimeOnly 'org.postgresql:postgresql'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    api libs.flyway
+    runtimeOnly libs.prometheus
+    runtimeOnly libs.postgresql
+    testImplementation libs.junit.api
+    testRuntimeOnly libs.junit.engine
 }

@@ -1,18 +1,18 @@
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
 }
 
 configurations {
-    compileOnlyApi {
+    compileOnly {
         extendsFrom annotationProcessor
     }
 }
 
 dependencies {
-    compileOnlyApi 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.26'
-    testCompileOnly 'org.projectlombok:lombok:1.18.26'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
-    api 'org.springframework.boot:spring-boot-starter-web'
-    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+    api libs.web
+    api libs.jpa
 }

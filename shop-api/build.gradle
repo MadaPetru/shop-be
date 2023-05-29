@@ -1,5 +1,5 @@
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
 }
 
 dependencies {

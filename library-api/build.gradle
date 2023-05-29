@@ -1,7 +1,7 @@
-repositories {
-    mavenCentral()
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
 }
 
 dependencies {
-    api 'org.springframework.boot:spring-boot-starter-validation'
+    api libs.validation
 }
