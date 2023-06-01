@@ -52,7 +52,9 @@ public class ProductServiceImpl implements ProductService {
         var fileNames = requestDto.getFileNames();
         var images = imageRepository.findByNameIn(fileNames);
         var entity = ProductConverter.convertToEntity(requestDto);
-        if (!images.isEmpty()) entity.setImages(images);
+        if (!images.isEmpty()) {
+            entity.setImages(images);
+        }
         return entity;
     }
 
