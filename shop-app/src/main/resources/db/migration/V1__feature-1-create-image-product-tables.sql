@@ -24,11 +24,11 @@ ALTER TABLE product
 CREATE TABLE product_images
 (
     product_id bigint NOT NULL
-        CONSTRAINT fki8jnqq05sk5nkma3pfp3ylqrt
+        CONSTRAINT product_id_foreign_key
             REFERENCES product,
     images_id  bigint NOT NULL
-        CONSTRAINT uk_3701am6d8us1lbn5v3j75yinr
+        CONSTRAINT image_id_foreign_key_unique
             UNIQUE
-        CONSTRAINT fkd99dtqyhwdbe0ngde824r2ogi
+        CONSTRAINT image_id_foreign_key
             REFERENCES image
 );

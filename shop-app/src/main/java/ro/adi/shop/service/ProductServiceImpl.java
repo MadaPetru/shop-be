@@ -14,8 +14,6 @@ import ro.adi.shop.jpa.entity.Product;
 import ro.adi.shop.jpa.repository.ImageRepository;
 import ro.adi.shop.jpa.repository.ProductRepository;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Component
 @Slf4j
@@ -38,21 +36,31 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto create(CreateProductRequestDto requestDto) {
-        List<String> fileNames = requestDto.getFileNames();
-        var images = imageRepository.findByNameIn(fileNames);
-        Product entity = ProductConverter.convertToEntity(requestDto);
-        entity.setImages(images);
-        Product saved = productRepository.save(entity);
+        var entity = buildEntityForCreate(requestDto);
+        var saved = productRepository.save(entity);
         return ProductConverter.convertToProductResponseDto(saved);
     }
 
     @Override
     public ProductResponseDto update(UpdateProductRequestDto requestDto) {
-        List<String> fileNames = requestDto.getFileNames();
-        var images = imageRepository.findByNameIn(fileNames);
-        Product entity = ProductConverter.convertToEntity(requestDto);
-        entity.setImages(images);
-        Product saved = productRepository.save(entity);
+        var entity = buildEntityForUpdate(requestDto);
+        var saved = productRepository.save(entity);
         return ProductConverter.convertToProductResponseDto(saved);
+    }
+
+    private Product buildEntityForUpdate(UpdateProductRequestDto requestDto) {
+        var fileNames = requestDto.getFileNames();
+        var images = imageRepository.findByNameIn(fileNames);
+        var entity = ProductConverter.convertToEntity(requestDto);
+        if (!images.isEmpty()) entity.setImages(images);
+        return entity;
+    }
+
+    private Product buildEntityForCreate(CreateProductRequestDto requestDto) {
+        var fileNames = requestDto.getFileNames();
+        var images = imageRepository.findByNameIn(fileNames);
+        var entity = ProductConverter.convertToEntity(requestDto);
+        entity.setImages(images);
+        return entity;
     }
 }

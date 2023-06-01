@@ -48,14 +48,8 @@ public class ProductConverter {
 
     public ProductResponseDto convertToProductResponseDto(Product product) {
         var images = product.getImages();
-        List<String> bytes = images.stream().map(image -> {
-            try {
-                return getImageAsByte(image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).toList();
+        List<String> bytes = null;
+        if (images != null) bytes = images.stream().map(ProductConverter::buildImageAsString).toList();
         return ProductResponseDto.builder()
                 .name(product.getName())
                 .price(product.getPrice())
@@ -65,7 +59,16 @@ public class ProductConverter {
                 .build();
     }
 
-    private String getImageAsByte(Image image) throws IOException {
+    private static String buildImageAsString(Image image) {
+        try {
+            return getImageAsString(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getImageAsString(Image image) throws IOException {
         File file = new File(image.getPath());
         byte[] bytes = Files.readAllBytes(file.toPath());
         return Base64.getEncoder().encodeToString(bytes);

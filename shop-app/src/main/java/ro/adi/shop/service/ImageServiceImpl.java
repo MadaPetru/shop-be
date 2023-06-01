@@ -24,32 +24,44 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void save(List<MultipartFile> files) {
-        for (MultipartFile file : files)
-            try {
-                String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-                createFileInResourceLoader(fileName, file.getBytes());
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
+        files.forEach(this::saveMultipartFile);
     }
 
 
-    public void createFileInResourceLoader(String fileName, byte[] content) throws IOException {
-        String pathFile = "shop-app/src/main/resources/images/" + fileName;
-        File file = new File(pathFile);
-        boolean isCreated = file.createNewFile();
+    public void saveMultipartFile(MultipartFile multipartFile) {
+        try {
+            var fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+            var pathFile = "shop-app/src/main/resources/images/" + fileName;
+            createFileInResourceLoader(multipartFile, pathFile);
+            createImageEntity(fileName, pathFile);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private static void createFileInResourceLoader(MultipartFile multipartFile, String pathFile) throws IOException {
+        var file = new File(pathFile);
+        var content = multipartFile.getBytes();
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             fileOutputStream.write(content);
         }
-        if (isCreated) {
-            createNewImageEntity(fileName, pathFile);
+    }
+
+    private void createImageEntity(String fileName, String pathFile) {
+        if (imageIsNotCreatedByFileName(fileName)) {
+            var entity = buildImageEntity(fileName, pathFile);
+            imageRepository.save(entity);
         }
     }
 
-    private void createNewImageEntity(String fileName, String pathFile) {
+    private boolean imageIsNotCreatedByFileName(String fileName) {
+        return !imageRepository.existsImageByName(fileName);
+    }
+
+    private Image buildImageEntity(String fileName, String pathFile) {
         Image entity = new Image();
         entity.setName(fileName);
         entity.setPath(pathFile);
-        imageRepository.save(entity);
+        return entity;
     }
 }
