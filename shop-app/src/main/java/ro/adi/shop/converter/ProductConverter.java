@@ -13,11 +13,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
 public class ProductConverter {
+
+    private final static String BLANK_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89fp1PQAJCANRJ+npiwAAAABJRU5ErkJggg==";
+
 
     public Page<ProductResponseDto> convertToProductPageableResponseDto(Page<Product> products) {
         var list = products.getContent();
@@ -48,14 +52,18 @@ public class ProductConverter {
 
     public ProductResponseDto convertToProductResponseDto(Product product) {
         var images = product.getImages();
-        List<String> bytes = null;
-        if (images != null) bytes = images.stream().map(ProductConverter::buildImageAsString).toList();
+        List<String> listOfImagesAsString;
+        if (images != null) {
+            listOfImagesAsString = images.stream().map(ProductConverter::buildImageAsString).toList();
+        } else {
+            listOfImagesAsString = Collections.singletonList(BLANK_IMAGE);
+        }
         return ProductResponseDto.builder()
                 .name(product.getName())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
                 .id(product.getId())
-                .images(bytes)
+                .images(listOfImagesAsString)
                 .build();
     }
 
@@ -69,8 +77,12 @@ public class ProductConverter {
     }
 
     private String getImageAsString(Image image) throws IOException {
-        File file = new File(image.getPath());
-        byte[] bytes = Files.readAllBytes(file.toPath());
-        return Base64.getEncoder().encodeToString(bytes);
+        try {
+            File file = new File(image.getPath());
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            return BLANK_IMAGE;
+        }
     }
 }
