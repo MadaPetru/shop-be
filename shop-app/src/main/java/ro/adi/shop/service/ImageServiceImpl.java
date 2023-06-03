@@ -29,14 +29,16 @@ public class ImageServiceImpl implements ImageService {
 
 
     public void saveMultipartFile(MultipartFile multipartFile) {
+        log.info("Save multipart file ...");
         try {
             var fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             var pathFile = "shop-app/src/main/resources/images/" + fileName;
             createFileInResourceLoader(multipartFile, pathFile);
             createImageEntity(fileName, pathFile);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("Error at saving multipart file" + e.getMessage());
         }
+        log.info("Saved  multipart file : {} successfully", multipartFile);
     }
 
     private static void createFileInResourceLoader(MultipartFile multipartFile, String pathFile) throws IOException {
@@ -49,6 +51,7 @@ public class ImageServiceImpl implements ImageService {
 
     private void createImageEntity(String fileName, String pathFile) {
         if (imageIsNotCreatedByFileName(fileName)) {
+            log.info("Create image with name: {}", fileName);
             var entity = buildImageEntity(fileName, pathFile);
             imageRepository.save(entity);
         }

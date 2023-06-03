@@ -1,6 +1,7 @@
 package ro.adi.shop.converter;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
@@ -18,9 +19,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
+@Slf4j
 public class ProductConverter {
 
-    private final static String BLANK_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89fp1PQAJCANRJ+npiwAAAABJRU5ErkJggg==";
+    private static final String BLANK_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP89fp1PQAJCANRJ+npiwAAAABJRU5ErkJggg==";
 
 
     public Page<ProductResponseDto> convertToProductPageableResponseDto(Page<Product> products) {
@@ -71,6 +73,7 @@ public class ProductConverter {
         try {
             return getImageAsString(image);
         } catch (IOException e) {
+            log.error("Build image as string failed with exception: {} and message: {}", e, e.getMessage());
             e.printStackTrace();
         }
         return null;
@@ -82,6 +85,7 @@ public class ProductConverter {
             byte[] bytes = Files.readAllBytes(file.toPath());
             return Base64.getEncoder().encodeToString(bytes);
         } catch (Exception e) {
+            log.error("Save image in resources and transform it in string failed with exception: {} and with the message: {}", e, e.getMessage());
             return BLANK_IMAGE;
         }
     }

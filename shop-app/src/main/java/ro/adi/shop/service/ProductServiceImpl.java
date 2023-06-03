@@ -25,18 +25,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductResponseDto> findAll(Pageable pageable) {
-        log.info("adi e bou");
+        log.info("Find all products with pageable: {}",pageable);
         Page<Product> pageableResult = productRepository.findAll(pageable);
         return ProductConverter.convertToProductPageableResponseDto(pageableResult);
     }
 
     @Override
     public boolean deleteById(long id) {
+        log.info("Delete product with id: {}",id);
         return productRepository.deleteById(id) != 0;
     }
 
     @Override
     public ProductResponseDto create(CreateProductRequestDto requestDto) {
+        log.info("Create product with request: {}",requestDto);
         var entity = buildEntityForCreate(requestDto);
         var saved = productRepository.save(entity);
         return ProductConverter.convertToProductResponseDto(saved);
@@ -44,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto update(UpdateProductRequestDto requestDto) {
+        log.info("Update product with id: {}, with request: {}",requestDto.getId(),requestDto);
         var entity = buildEntityForUpdate(requestDto);
         var saved = productRepository.save(entity);
         return ProductConverter.convertToProductResponseDto(saved);
