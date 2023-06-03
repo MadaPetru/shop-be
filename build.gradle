@@ -5,7 +5,7 @@ plugins {
 subprojects {
 
     group 'ro.adi'
-    version '0.0.1-SNAPSHOT'
+    version '1.0.0'
 
     apply plugin: 'java'
     apply plugin: 'java-library'
@@ -26,5 +26,6 @@ subprojects {
         annotationProcessor libs.lombok
         testCompileOnly libs.lombok
         testAnnotationProcessor libs.lombok
+        implementation libs.logstash
     }
 }

@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductResponseDto> findAll(Pageable pageable) {
+        log.info("adi e bou");
         Page<Product> pageableResult = productRepository.findAll(pageable);
         return ProductConverter.convertToProductPageableResponseDto(pageableResult);
     }

@@ -32,6 +32,7 @@ dependencyResolutionManagement {
             library('junit-api', 'org.junit.jupiter','junit-jupiter-api').versionRef('junit-jupiter')
             library('junit-engine', 'org.junit.jupiter','junit-jupiter-engine').versionRef('junit-jupiter')
             library('flyway', 'org.flywaydb:flyway-core:9.19.1')
+            library('logstash', 'net.logstash.logback:logstash-logback-encoder:7.2')
             plugin('java','java').version('17')
             plugin('java-library','java-library').version('17')
             plugin('dependency-management','io.spring.dependency-management').version('1.1.0')
