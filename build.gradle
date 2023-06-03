@@ -27,5 +27,6 @@ subprojects {
         testCompileOnly libs.lombok
         testAnnotationProcessor libs.lombok
         implementation libs.logstash
+        implementation libs.bundles.prometheus
     }
 }

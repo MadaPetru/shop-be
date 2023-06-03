@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
     api libs.flyway
-    runtimeOnly libs.prometheus
     runtimeOnly libs.postgresql
     testImplementation libs.junit.api
     testRuntimeOnly libs.junit.engine
