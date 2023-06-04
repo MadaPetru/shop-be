@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Aspect
 @Component
@@ -27,8 +28,8 @@ public class ApiLoggingAspect {
             throw throwable;
         }
         var endDate = LocalDateTime.now();
-        var timeElapsedInNano = endDate.getNano() - startDate.getNano();
-        log.info("API execution completed at {} for method: {} with time elapsing in nano of: {}", endDate, methodName, timeElapsedInNano);
+        var timeElapsedInMilliseconds = endDate.toInstant(ZoneOffset.UTC).toEpochMilli() - startDate.toInstant(ZoneOffset.UTC).toEpochMilli();
+        log.info("API execution completed at {} for method: {} with time elapsing in milliseconds of: {}", endDate, methodName, timeElapsedInMilliseconds);
         return result;
     }
 }
