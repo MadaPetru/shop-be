@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ro.adi.shop.ProductController;
+import ro.adi.shop.config.LoggingPerformanceApi;
 import ro.adi.shop.dto.request.CreateProductRequestDto;
 import ro.adi.shop.dto.request.SearchAllPageableRequest;
 import ro.adi.shop.dto.request.UpdateProductRequestDto;
@@ -19,22 +20,26 @@ public class ProductControllerImpl implements ProductController {
     private final ProductService productService;
 
     @Override
-    public Page<ProductResponseDto> findAll(SearchAllPageableRequest request) {
-        return productService.findAll(request.getPageable());
+    @LoggingPerformanceApi
+    public Page<ProductResponseDto> findAllProducts(SearchAllPageableRequest request) {
+        return productService.findAllProducts(request.getPageable());
     }
 
     @Override
-    public boolean deleteById(long id) {
-        return productService.deleteById(id);
+    @LoggingPerformanceApi
+    public boolean deleteProductById(long id) {
+        return productService.deleteProductById(id);
     }
 
     @Override
-    public ProductResponseDto save(CreateProductRequestDto requestDto) {
+    @LoggingPerformanceApi
+    public ProductResponseDto saveProduct(CreateProductRequestDto requestDto) {
         return productService.create(requestDto);
     }
 
     @Override
-    public ProductResponseDto update(UpdateProductRequestDto requestDto) {
-        return productService.update(requestDto);
+    @LoggingPerformanceApi
+    public ProductResponseDto updateProduct(UpdateProductRequestDto requestDto) {
+        return productService.updateProduct(requestDto);
     }
 }

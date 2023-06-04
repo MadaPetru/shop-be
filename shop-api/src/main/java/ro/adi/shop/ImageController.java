@@ -11,5 +11,5 @@ import java.util.List;
 @RequestMapping("/images")
 public interface ImageController {
     @PostMapping
-    void save(@RequestParam("files[]") @Size(max = 10) List<MultipartFile> files);
+    void saveImages(@RequestParam("files[]") @Size(max = 10) List<MultipartFile> files);
 }

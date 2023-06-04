@@ -23,7 +23,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
 
     @Override
-    public void save(List<MultipartFile> files) {
+    public void saveImages(List<MultipartFile> files) {
         files.forEach(this::saveMultipartFile);
     }
 

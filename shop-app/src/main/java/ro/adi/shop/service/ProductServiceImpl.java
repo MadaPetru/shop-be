@@ -24,14 +24,14 @@ public class ProductServiceImpl implements ProductService {
     private final ImageRepository imageRepository;
 
     @Override
-    public Page<ProductResponseDto> findAll(Pageable pageable) {
+    public Page<ProductResponseDto> findAllProducts(Pageable pageable) {
         log.info("Find all products with pageable: {}",pageable);
         Page<Product> pageableResult = productRepository.findAll(pageable);
         return ProductConverter.convertToProductPageableResponseDto(pageableResult);
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteProductById(long id) {
         log.info("Delete product with id: {}",id);
         return productRepository.deleteById(id) != 0;
     }
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponseDto update(UpdateProductRequestDto requestDto) {
+    public ProductResponseDto updateProduct(UpdateProductRequestDto requestDto) {
         log.info("Update product with id: {}, with request: {}",requestDto.getId(),requestDto);
         var entity = buildEntityForUpdate(requestDto);
         var saved = productRepository.save(entity);

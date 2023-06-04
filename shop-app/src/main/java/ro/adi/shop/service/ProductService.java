@@ -10,11 +10,11 @@ import ro.adi.shop.dto.response.ProductResponseDto;
 @Service
 public interface ProductService {
 
-    Page<ProductResponseDto> findAll(Pageable pageable);
+    Page<ProductResponseDto> findAllProducts(Pageable pageable);
 
-    boolean deleteById(long id);
+    boolean deleteProductById(long id);
 
     ProductResponseDto create(CreateProductRequestDto requestDto);
 
-    ProductResponseDto update(UpdateProductRequestDto requestDto);
+    ProductResponseDto updateProduct(UpdateProductRequestDto requestDto);
 }

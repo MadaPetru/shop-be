@@ -11,14 +11,14 @@ import ro.adi.shop.dto.response.ProductResponseDto;
 public interface ProductController {
 
     @PostMapping("/search")
-    Page<ProductResponseDto> findAll(@RequestBody SearchAllPageableRequest pageable);
+    Page<ProductResponseDto> findAllProducts(@RequestBody SearchAllPageableRequest pageable);
 
     @DeleteMapping(path = "/{id}")
-    boolean deleteById(@PathVariable long id);
+    boolean deleteProductById(@PathVariable long id);
 
     @PostMapping
-    ProductResponseDto save(@RequestBody CreateProductRequestDto requestDto);
+    ProductResponseDto saveProduct(@RequestBody CreateProductRequestDto requestDto);
 
     @PutMapping
-    ProductResponseDto update(@RequestBody UpdateProductRequestDto requestDto);
+    ProductResponseDto updateProduct(@RequestBody UpdateProductRequestDto requestDto);
 }

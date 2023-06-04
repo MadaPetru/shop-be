@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface ImageService {
 
-    void save(List<MultipartFile> files);
+    void saveImages(List<MultipartFile> files);
 }
