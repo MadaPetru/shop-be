@@ -34,5 +34,7 @@ RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
 # Build the application using Gradle
 RUN ./gradlew clean build -x test
 
+EXPOSE 8080
+
 # Specify the entry point command to run the application
 CMD ["java", "-jar", "shop-app/build/libs/shop-app-1.0.0.jar"]

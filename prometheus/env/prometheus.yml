@@ -16,9 +16,9 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['prometheus:9090']
 
-  - job_name: 'shop-app'
+  - job_name: 'shop-app-be'
 
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
@@ -26,4 +26,4 @@ scrape_configs:
     metrics_path: '/actuator/prometheus'
 
     static_configs:
-      - targets: ['localhost:8080']
+      - targets: ['shop_be:8080']

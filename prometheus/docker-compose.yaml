@@ -2,7 +2,8 @@ version: '3'
 services:
   prometheus:
     networks:
-      - prometheus
+      - shop_be
+      - grafana_prometheus
     image: prom/prometheus
     container_name: prometheus
     volumes:
@@ -10,8 +11,6 @@ services:
     ports:
       - 9090:9090
   grafana:
-    networks:
-      - prometheus
     image: grafana/grafana
     container_name: grafana
     ports:
@@ -21,5 +20,11 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_DOMAIN=localhost
+    networks:
+      - grafana_prometheus
 networks:
-  prometheus:
+  shop_be:
+    external:
+      name: shop_be
+  grafana_prometheus:
+    driver: bridge

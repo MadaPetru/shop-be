@@ -3,7 +3,11 @@ management:
     web:
       base-path: /actuator
       exposure:
-        include: '*'
+        include:
+          - prometheus
+          - info
+          - metrics
+          - health
   endpoint:
     metrics:
       enabled: true
@@ -11,6 +15,7 @@ management:
       enabled: true
     health:
       show-details: always
+      enabled: true
 spring:
   jpa:
     properties:
