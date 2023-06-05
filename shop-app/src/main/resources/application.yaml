@@ -17,6 +17,8 @@ management:
       show-details: always
       enabled: true
 spring:
+  application:
+    name: shop_be
   jpa:
     properties:
       hibernate:

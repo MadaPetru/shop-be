@@ -4,6 +4,8 @@ services:
     networks:
       - shop_be
       - grafana_prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     image: prom/prometheus
     container_name: prometheus
     volumes:
@@ -20,6 +22,8 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SERVER_DOMAIN=localhost
+    volumes:
+      - grafana-storage:/var/lib/grafana
     networks:
       - grafana_prometheus
 networks:
