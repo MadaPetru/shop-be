@@ -14,7 +14,7 @@ import ro.adi.shop.service.ProductService;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://localhost:4200","http://192.168.0.106:4200"})
 public class ProductControllerImpl implements ProductController {
 
     private final ProductService productService;
