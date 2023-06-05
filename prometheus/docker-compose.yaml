@@ -32,3 +32,5 @@ networks:
       name: shop_be
   grafana_prometheus:
     driver: bridge
+volumes:
+  grafana-storage:
