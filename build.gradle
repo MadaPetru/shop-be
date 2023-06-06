@@ -5,7 +5,7 @@ plugins {
 
 sonar {
     properties {
-        property "sonar.projectKey", "test"
+        property "sonar.projectKey", "shop-be"
         property "sonar.login","admin"
         property "sonar.password","adiida123321"
     }
