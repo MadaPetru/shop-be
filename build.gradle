@@ -5,7 +5,7 @@ plugins {
 
 sonar {
     properties {
-        property "sonar.projectKey", "shop-be"
+        property "sonar.projectKey", "Gorrila-shop-be"
         property "sonar.login","admin"
         property "sonar.password","password"
     }
