@@ -19,10 +19,7 @@
 #        run: ./gradlew clean build
 name: Build
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 
 jobs:
