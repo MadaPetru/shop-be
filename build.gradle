@@ -7,7 +7,7 @@ sonar {
     properties {
         property "sonar.projectKey", "shop-be"
         property "sonar.login","admin"
-        property "sonar.password","adiida123321"
+        property "sonar.password","password"
     }
 }
 subprojects {
