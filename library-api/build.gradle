@@ -5,3 +5,8 @@ plugins {
 dependencies {
     api libs.validation
 }
+project(":library-api") {
+    sonar {
+        skipProject = true
+    }
+}

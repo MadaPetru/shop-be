@@ -8,3 +8,8 @@ dependencies {
     testImplementation libs.junit.api
     testRuntimeOnly libs.junit.engine
 }
+project(":library-app") {
+    sonar {
+        skipProject = true
+    }
+}
