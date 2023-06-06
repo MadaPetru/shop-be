@@ -1,0 +1,36 @@
+version: '3'
+services:
+  prometheus:
+    networks:
+      - shop_be
+      - grafana_prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./env/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    env_file:
+      - ./env/grafana.env
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - grafana_prometheus
+networks:
+  shop_be:
+    external:
+      name: shop_be
+  grafana_prometheus:
+    driver: bridge
+volumes:
+  grafana-storage:

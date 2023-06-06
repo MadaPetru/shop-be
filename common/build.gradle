@@ -1,0 +1,21 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+}
+project(":common") {
+    sonar {
+        skipProject = true
+    }
+}

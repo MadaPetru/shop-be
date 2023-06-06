@@ -1,0 +1,23 @@
+plugins{
+    id 'org.springframework.boot' version '3.0.5'
+}
+dependencies {
+    implementation project(':shop-api')
+    implementation(project(':library-app')) {
+        transitive = true
+    }
+    implementation(project(':common')) {
+        transitive = true
+    }
+    implementation libs.starter
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ro.adi.shop.ShopApplication'
+    }
+}

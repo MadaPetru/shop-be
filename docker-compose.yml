@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db_app:
+    container_name: db_app
+    hostname: db_app
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=adi
+      - POSTGRES_PASSWORD=adi
+      - POSTGRES_DB=db
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - shop_be
+  shop_be:
+    image: shop_be
+    container_name: shop_be
+    depends_on:
+      - db_app
+    ports:
+      - '8080:8080'
+    build:
+      dockerfile: Dockerfile
+      context: .
+    networks:
+      - shop_be
+volumes:
+  db:
+    name: db-shop-app-be-volume
+    driver: local
+networks:
+  shop_be:
+    driver: bridge
+    name: shop_be

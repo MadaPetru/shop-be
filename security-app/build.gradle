@@ -1,0 +1,13 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':security-api')
+    implementation project(':library-app')
+    implementation project(':common')
+}
+
+test {
+    useJUnitPlatform()
+}

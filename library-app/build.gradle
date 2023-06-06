@@ -1,0 +1,15 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+dependencies {
+    api libs.flyway
+    runtimeOnly libs.postgresql
+    testImplementation libs.junit.api
+    testRuntimeOnly libs.junit.engine
+}
+project(":library-app") {
+    sonar {
+        skipProject = true
+    }
+}

@@ -1,0 +1,40 @@
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - prometheus
+          - info
+          - metrics
+          - health
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
+      enabled: true
+spring:
+  application:
+    name: shop_be
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+    hibernate:
+      ddl-auto: update
+  flyway:
+    user: adi
+    password: adi
+    url: jdbc:postgresql://db_app:5432/db
+  datasource:
+    password: adi
+    username: adi
+    url: jdbc:postgresql://db_app:5432/db
+server:
+  port: 8080
