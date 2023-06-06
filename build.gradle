@@ -6,6 +6,8 @@ plugins {
 sonar {
     properties {
         property "sonar.projectKey", "test"
+        property "sonar.login","admin"
+        property "sonar.password","adiida123321"
     }
 }
 subprojects {
