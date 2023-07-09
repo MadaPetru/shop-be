@@ -1,0 +1,13 @@
+authtoken: 2R42gtGArcHCfDCcsClsZV7pwYD_4LkLnicRNhvmaEt1dtuke
+
+tunnels:
+  sonarqube:
+    proto: http
+    addr: host.docker.internal:9000
+  shop-fe:
+    proto: http
+    addr: host.docker.internal:4200
+  shop-be-production:
+    proto: http
+    addr: host.docker.internal:8081
+version: 2

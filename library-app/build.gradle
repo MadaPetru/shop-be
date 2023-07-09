@@ -1,0 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+dependencies {
+    api libs.flyway
+    api libs.hibernate
+    api libs.jakarta
+    api libs.jpa
+    api libs.logstash
+    api libs.micrometer
+}
+project(":library-app") {
+    sonar {
+        skipProject = true
+    }
+}

@@ -1,0 +1,13 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':library-api')
+    implementation project(':common')
+}
+project(":security-api") {
+    sonar {
+        skipProject = true
+    }
+}
