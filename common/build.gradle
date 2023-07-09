@@ -1,0 +1,19 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    api libs.test
+    api libs.web
+}
+project(":common") {
+    sonar {
+        skipProject = true
+    }
+}

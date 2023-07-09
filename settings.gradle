@@ -1,0 +1,37 @@
+rootProject.name = 'shop'
+include 'shop-app'
+include 'security-api'
+include 'security-app'
+include 'shop-api'
+include 'library-api'
+include 'library-app'
+include 'common'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            version('spring-boot-starter','3.0.5')
+            version('prometheus','0.16.0')
+            version('junit-jupiter','5.7.0')
+            library('lombok', 'org.projectlombok:lombok:1.18.26')
+            library('web', 'org.springframework.boot','spring-boot-starter-web').versionRef('spring-boot-starter')
+            library('jpa', 'org.springframework.boot','spring-boot-starter-data-jpa').versionRef('spring-boot-starter')
+            library('test', 'org.springframework.boot','spring-boot-starter-test').versionRef('spring-boot-starter')
+            library('validation', 'org.springframework.boot','spring-boot-starter-validation').versionRef('spring-boot-starter')
+            library('starter', 'org.springframework.boot','spring-boot-starter').versionRef('spring-boot-starter')
+            library('postgresql', 'org.postgresql:postgresql:42.6.0')
+            library('junit-api', 'org.junit.jupiter','junit-jupiter-api').versionRef('junit-jupiter')
+            library('junit-engine', 'org.junit.jupiter','junit-jupiter-engine').versionRef('junit-jupiter')
+            library('flyway', 'org.flywaydb:flyway-core:9.19.1')
+            library('logstash', 'net.logstash.logback:logstash-logback-encoder:7.2')
+            library('micrometer','io.micrometer:micrometer-registry-prometheus:1.11.0')
+            library('actuator','org.springframework.boot:spring-boot-starter-actuator:3.1.0')
+            library('jakarta','jakarta.persistence:jakarta.persistence-api:3.0.0')
+            library('hibernate','org.hibernate:hibernate-core:6.1.7.Final')
+//            plugin('java','java').version('17')
+//            plugin('java-library','java-library').version('17')
+//            plugin('dependency-management','io.spring.dependency-management').version('1.1.0')
+        }
+    }
+}
+

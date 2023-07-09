@@ -1,0 +1,13 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+dependencies {
+    implementation project(':library-api')
+    implementation project(':common')
+}
+
+jacocoTestReport{
+    executionData files("${project(':shop-app').buildDir}/jacoco/test.exec")
+    executionData files("${project(':shop-api').buildDir}/jacoco/test.exec")
+}

@@ -1,0 +1,14 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.5' apply false
+}
+
+dependencies {
+    api libs.validation
+    api libs.actuator
+    api libs.jpa
+}
+project(":library-api") {
+    sonar {
+        skipProject = true
+    }
+}

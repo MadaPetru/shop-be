@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: administrator
+global-configurations:
+  images:
+    path: /c/Users/Adi/Desktop/saved-images/
+#this is used to pass the headers from request that are handle by nginx using https protocol
+server:
+  forward-headers-strategy: framework
