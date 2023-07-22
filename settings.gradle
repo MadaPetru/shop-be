@@ -13,6 +13,8 @@ dependencyResolutionManagement {
             version('spring-boot-starter','3.0.5')
             version('prometheus','0.16.0')
             version('junit-jupiter','5.7.0')
+            version('jwt','0.11.5')
+
             library('lombok', 'org.projectlombok:lombok:1.18.26')
             library('web', 'org.springframework.boot','spring-boot-starter-web').versionRef('spring-boot-starter')
             library('jpa', 'org.springframework.boot','spring-boot-starter-data-jpa').versionRef('spring-boot-starter')
@@ -28,9 +30,11 @@ dependencyResolutionManagement {
             library('actuator','org.springframework.boot:spring-boot-starter-actuator:3.1.0')
             library('jakarta','jakarta.persistence:jakarta.persistence-api:3.0.0')
             library('hibernate','org.hibernate:hibernate-core:6.1.7.Final')
-//            plugin('java','java').version('17')
-//            plugin('java-library','java-library').version('17')
-//            plugin('dependency-management','io.spring.dependency-management').version('1.1.0')
+            library('starter-security','org.springframework.boot','spring-boot-starter-security').withoutVersion()
+            library('jwt-impl','io.jsonwebtoken','jjwt-impl').versionRef('jwt')
+            library('jwt-api','io.jsonwebtoken','jjwt-api').versionRef('jwt')
+            library('jwt-jackson','io.jsonwebtoken','jjwt-jackson').versionRef('jwt')
+            bundle('jwt',['jwt-api','jwt-impl','jwt-jackson'])
         }
     }
 }

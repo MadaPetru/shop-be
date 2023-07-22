@@ -8,6 +8,8 @@ plugins {
 tasks.register('aggregateJacocoTestReport', JacocoReport) {
     dependsOn = allprojects.test
 
+    executionData files("${project(':security-app').buildDir}/jacoco/test.exec")
+    executionData files("${project(':security-api').buildDir}/jacoco/test.exec")
     executionData files("${project(':shop-app').buildDir}/jacoco/test.exec")
     executionData files("${project(':shop-api').buildDir}/jacoco/test.exec")
 
@@ -87,5 +89,9 @@ allprojects {
         annotationProcessor libs.lombok
         testCompileOnly libs.lombok
         testAnnotationProcessor libs.lombok
+        implementation libs.starter.security
+        runtimeOnly libs.jwt.impl
+        runtimeOnly libs.jwt.jackson
+        implementation libs.jwt.api
     }
 }

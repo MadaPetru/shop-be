@@ -84,7 +84,7 @@ public class ProductConverter {
             byte[] bytes = Files.readAllBytes(file.toPath());
             return Base64.getEncoder().encodeToString(bytes);
         } catch (Exception e) {
-            log.error("Save image and transform it in string failed with exception: {} and with the message: {}", e, e.getMessage());
+            log.error("Transform image in string failed with exception: {} and with the message: {}", e, e.getMessage());
             return BLANK_IMAGE;
         }
     }

@@ -11,6 +11,9 @@ configurations {
 dependencies {
     api libs.test
     api libs.web
+    api libs.validation
+    api libs.actuator
+    api libs.jpa
 }
 project(":common") {
     sonar {
