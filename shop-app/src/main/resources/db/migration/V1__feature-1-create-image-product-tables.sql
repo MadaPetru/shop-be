@@ -1,4 +1,4 @@
-CREATE TABLE image
+CREATE TABLE IF NOT EXISTS image
 (
     id   bigint NOT NULL
         PRIMARY KEY,
@@ -9,7 +9,7 @@ CREATE TABLE image
 ALTER TABLE image
     owner TO adi;
 
-CREATE TABLE product
+CREATE TABLE IF NOT EXISTS product
 (
     id       bigint NOT NULL
         PRIMARY KEY,
@@ -21,7 +21,7 @@ CREATE TABLE product
 ALTER TABLE product
     owner TO adi;
 
-CREATE TABLE product_images
+CREATE TABLE IF NOT EXISTS product_images
 (
     product_id bigint NOT NULL
         CONSTRAINT product_id_foreign_key

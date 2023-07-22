@@ -6,6 +6,7 @@ dependencies {
     implementation project(':shop-api')
     implementation project(':library-app')
     implementation project(':common')
+    implementation project(':security-app')
     implementation libs.starter
     testImplementation libs.junit.api
     testRuntimeOnly libs.junit.engine

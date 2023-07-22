@@ -3,9 +3,6 @@ plugins {
 }
 
 dependencies {
-    api libs.validation
-    api libs.actuator
-    api libs.jpa
 }
 project(":library-api") {
     sonar {

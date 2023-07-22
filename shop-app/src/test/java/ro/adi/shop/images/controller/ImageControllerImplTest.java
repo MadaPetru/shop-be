@@ -2,12 +2,14 @@ package ro.adi.shop.images.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import ro.adi.shop.images.ImageDataProvider;
 import ro.adi.shop.images.service.ImageServiceImpl;
+import ro.adi.shop.security.JwtTokenProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyList;
@@ -17,7 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ro.adi.shop.Constants.EXPECTED_MESSAGE_FOR_INTERNAL_APP_ERROR;
 import static ro.adi.shop.Urls.BASE_URL_IMAGES;
 
-@WebMvcTest(ImageControllerImpl.class)
+@AutoConfigureMockMvc(addFilters = false)
+@WebMvcTest({ImageControllerImpl.class, JwtTokenProvider.class})
 @TestPropertySource(locations = "classpath:application-test.yaml")
 class ImageControllerImplTest {
 

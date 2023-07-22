@@ -11,8 +11,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-project(":security-app") {
-    sonar {
-        skipProject = true
-    }
-}

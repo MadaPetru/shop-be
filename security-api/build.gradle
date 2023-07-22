@@ -6,8 +6,7 @@ dependencies {
     implementation project(':library-api')
     implementation project(':common')
 }
-project(":security-api") {
-    sonar {
-        skipProject = true
-    }
+jacocoTestReport{
+    executionData files("${project(':security-app').buildDir}/jacoco/test.exec")
+    executionData files("${project(':security-api').buildDir}/jacoco/test.exec")
 }

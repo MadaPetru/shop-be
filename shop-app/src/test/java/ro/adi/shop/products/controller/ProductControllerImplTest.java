@@ -3,6 +3,7 @@ package ro.adi.shop.products.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -10,6 +11,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import ro.adi.shop.products.ProductDataProvider;
 import ro.adi.shop.products.service.ProductService;
+import ro.adi.shop.security.JwtTokenProvider;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +22,8 @@ import static ro.adi.shop.Constants.EXPECTED_MESSAGE_FOR_INTERNAL_APP_ERROR;
 import static ro.adi.shop.Urls.BASE_URL_PRODUCTS;
 import static ro.adi.shop.Urls.URL_FIND_ALL_PRODUCTS_PAGEABLE;
 
-@WebMvcTest(ProductControllerImpl.class)
+@AutoConfigureMockMvc(addFilters = false)
+@WebMvcTest({ProductControllerImpl.class, JwtTokenProvider.class})
 @TestPropertySource(locations = "classpath:application-test.yaml")
 class ProductControllerImplTest {
 
