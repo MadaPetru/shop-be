@@ -46,8 +46,7 @@ services:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       - elastic
-      - shop_be_admin
-      - shop_be_production
+      - shop_be
     depends_on:
       - elasticsearch
 
@@ -55,12 +54,9 @@ networks:
   elastic:
     name: "elastic"
     driver: bridge
-  shop_be_admin:
+  shop_be:
     external:
-      name: shop_be_admin
-  shop_be_production:
-    external:
-      name: shop_be_production
+      name: shop_be
 
 volumes:
   elasticsearch_data:

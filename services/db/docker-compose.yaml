@@ -14,14 +14,11 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     networks:
-      - shop_be_admin
-      - shop_be_production
+      - shop_be
 volumes:
   db:
     name: db-shop-app-be-volume
     driver: local
 networks:
-  shop_be_admin:
-    external: true
-  shop_be_production:
+  shop_be:
     external: true

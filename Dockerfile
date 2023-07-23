@@ -27,8 +27,7 @@ COPY library-api/build.gradle ./library-api/build.gradle
 COPY library-app/build.gradle ./library-app/build.gradle
 
 COPY common/build.gradle ./common/build.gradle
-
-COPY shop-app/src/main/resources/application-administrator.yaml shop-app/src/main/resources/application.yaml
+COPY common/src ./common/src
 
 # Make the gradlew script executable and remove Windows line endings
 RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
@@ -37,4 +36,4 @@ RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
 RUN ./gradlew clean build -x test
 
 # Specify the entry point command to run the application
-CMD ["java", "-jar", "shop-app/build/libs/shop-app-1.0.0.jar"]
+CMD ["java", "-Dspring.profiles.active=local-docker", "-jar", "shop-app/build/libs/shop-app-1.0.0.jar"]
