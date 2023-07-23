@@ -67,7 +67,7 @@ public class ImageServiceImpl implements ImageService {
                 fileOutputStream.write(content);
             }
         } catch (Exception e) {
-            log.error("Error creating the file on disk.");
+            log.error("Error creating the file {} on disk.", file);
         }
     }
 

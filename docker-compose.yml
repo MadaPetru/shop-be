@@ -1,52 +1,24 @@
 version: '3.8'
 services:
-  shop_be_admin:
-    image: caleamare/shop_be_admin:v1
-    container_name: shop_be_admin
-    hostname: shop_be_admin
+  shop_be:
+    image: caleamare/shop_be:v1
+    container_name: shop_be
+    hostname: shop_be
     restart: on-failure
     ports:
       - '8080:8080'
     build:
-      dockerfile: administrator.Dockerfile
+      dockerfile: Dockerfile
       context: .
     networks:
-      - shop_be_admin
+      - shop_be
     volumes:
       - saved-images:/c/Users/Adi/Desktop/saved-images
-  shop_be_production:
-    image: caleamare/shop_be_production:v1
-    container_name: shop_be_production
-    hostname: shop_be_production
-    restart: on-failure
-    ports:
-      - '8081:8081'
-    build:
-      dockerfile: production.Dockerfile
-      context: .
-    networks:
-      - shop_be_production
-    volumes:
-      - saved-images:/c/Users/Adi/Desktop/saved-images
-  nginx:
-    image: nginx:alpine
-    container_name: nginx_be
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./certificate.crt:/etc/nginx/certificate.crt
-      - ./private.key:/etc/nginx/private.key
-    networks:
-      - shop_be_production
-    ports:
-      - '443:443'
 volumes:
   saved-images:
     name: saved-images
     driver: local
 networks:
-  shop_be_admin:
+  shop_be:
     driver: bridge
-    name: shop_be_admin
-  shop_be_production:
-    driver: bridge
-    name: shop_be_production
+    name: shop_be

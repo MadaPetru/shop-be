@@ -18,7 +18,7 @@ management:
       enabled: true
 spring:
   application:
-    name: shop_be_admin
+    name: shop_be
   jpa:
     properties:
       hibernate:
@@ -31,12 +31,12 @@ spring:
   flyway:
     user: adi
     password: adi
-    url: jdbc:postgresql://localhost:5432/db
+    url: jdbc:postgresql://db_app:5432/db
     baseline-on-migrate: true
   datasource:
     password: adi
     username: adi
-    url: jdbc:postgresql://localhost:5432/db
+    url: jdbc:postgresql://db_app:5432/db
 server:
   port: 8080
 global-configurations:

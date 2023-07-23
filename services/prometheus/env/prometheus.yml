@@ -18,7 +18,7 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus:9090']
 
-  - job_name: 'shop_be_administrator'
+  - job_name: 'shop_be'
 
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
@@ -27,12 +27,3 @@ scrape_configs:
 
     static_configs:
       - targets: ['host.docker.internal:8080']
-  - job_name: 'shop_be_production'
-
-    # Override the global default and scrape targets from this job every 5 seconds.
-    scrape_interval: 5s
-
-    metrics_path: '/actuator/prometheus'
-
-    static_configs:
-      - targets: [ 'host.docker.internal:8081' ]
