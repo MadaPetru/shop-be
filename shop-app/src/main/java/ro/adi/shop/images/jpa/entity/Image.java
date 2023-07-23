@@ -3,15 +3,16 @@ package ro.adi.shop.images.jpa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ro.adi.shop.BaseEntity;
 
 @Entity
 @Getter
 @Setter
-public class Image {
+public class Image extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_gen")
-    @SequenceGenerator(name = "image_gen", sequenceName = "image_sequence", allocationSize = 32,initialValue = 10001)
+    @SequenceGenerator(name = "image_gen", sequenceName = "image_sequence", allocationSize = 32, initialValue = 10001)
     private long id;
     @Column
     private String name;

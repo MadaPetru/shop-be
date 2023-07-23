@@ -3,6 +3,7 @@ package ro.adi.shop.users.jpa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ro.adi.shop.BaseEntity;
 
 import java.util.Set;
 
@@ -10,10 +11,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "user", schema = "public")
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
-    @SequenceGenerator(name = "user_gen", sequenceName = "user_sequence", allocationSize = 32, initialValue = 1)
+    @SequenceGenerator(name = "user_gen", sequenceName = "user_sequence", allocationSize = 32)
     private long id;
 
     @Column

@@ -2,6 +2,7 @@ package ro.adi.shop.products.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import ro.adi.shop.products.dto.request.CreateProductRequestDto;
 import ro.adi.shop.products.dto.request.UpdateProductRequestDto;
@@ -16,5 +17,6 @@ public interface ProductService {
 
     ProductResponseDto saveProduct(CreateProductRequestDto requestDto);
 
+    @Retryable
     ProductResponseDto updateProduct(UpdateProductRequestDto requestDto);
 }

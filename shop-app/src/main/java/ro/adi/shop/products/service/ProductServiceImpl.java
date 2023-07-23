@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 @Component
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public boolean deleteProductById(long id) {
         log.info("Delete product with id: {}", id);
         productRepository.findById(id).ifPresent(this::deleteFilesOfProductFromFolder);
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponseDto saveProduct(CreateProductRequestDto requestDto) {
         log.info("Create product with request: {}", requestDto);
         var entity = buildEntityForCreate(requestDto);
@@ -53,11 +56,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponseDto updateProduct(UpdateProductRequestDto requestDto) {
         log.info("Update product with id: {}, with request: {}", requestDto.getId(), requestDto);
         var entity = buildEntityForUpdate(requestDto);
+        productRepository.findById(entity.getId()).ifPresent(setVersionAndCreationTimestamp(entity));
         var saved = productRepository.save(entity);
         return ProductConverter.convertToProductResponseDto(saved);
+    }
+
+    private Consumer<Product> setVersionAndCreationTimestamp(Product entityBuildFromRequest) {
+
+        return product -> {
+            entityBuildFromRequest.setVersion(product.getVersion());
+            entityBuildFromRequest.setCreatedTimestamp(product.getCreatedTimestamp());
+        };
     }
 
     private void deleteFilesOfProductFromFolder(Product product) {

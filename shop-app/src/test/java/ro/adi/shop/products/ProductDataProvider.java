@@ -9,6 +9,7 @@ import ro.adi.shop.products.dto.request.UpdateProductRequestDto;
 import ro.adi.shop.products.dto.response.ProductResponseDto;
 import ro.adi.shop.products.jpa.entity.Product;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class ProductDataProvider {
     private final static String PRODUCT_NAME = "Adidas";
     private final static List<String> FILE_NAMES = List.of("adidas.jpg");
     private final static int PRODUCT_ID = 10321312;
+    private final static Long VERSION = 0L;
+    private final static Instant UPDATED_TIMESTAMP = Instant.now();
+    private final static Instant CREATION_TIMESTAMP = Instant.now();
 
     public static SearchAllPageableRequest createSearchAllPageableRequestMock() {
         return SearchAllPageableRequest.builder()
@@ -51,7 +55,7 @@ public class ProductDataProvider {
         return entity;
     }
 
-    public static Product getProductEntity(){
+    public static Product getProductEntity() {
         var entity = new Product();
         entity.setName(PRODUCT_NAME);
         entity.setQuantity(QUANTITY);
@@ -67,6 +71,9 @@ public class ProductDataProvider {
         entity.setPrice(PRICE);
         entity.setImages(IMAGES);
         entity.setId(PRODUCT_ID);
+        entity.setVersion(VERSION);
+        entity.setCreatedTimestamp(CREATION_TIMESTAMP);
+        entity.setUpdatedTimestamp(UPDATED_TIMESTAMP);
         return entity;
     }
 
