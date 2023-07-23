@@ -3,6 +3,7 @@ package ro.adi.shop.products.jpa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import ro.adi.shop.BaseEntity;
 import ro.adi.shop.images.jpa.entity.Image;
 
 import java.util.List;
@@ -11,11 +12,11 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_gen")
-    @SequenceGenerator(name = "product_gen", sequenceName = "product_sequence", allocationSize = 32,initialValue = 10001)
+    @SequenceGenerator(name = "product_gen", sequenceName = "product_sequence", allocationSize = 32, initialValue = 10001)
     private long id;
     @Column
     private String name;

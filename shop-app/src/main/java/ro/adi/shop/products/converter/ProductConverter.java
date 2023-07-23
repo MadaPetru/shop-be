@@ -45,6 +45,7 @@ public class ProductConverter {
         entity.setPrice(requestDto.getPrice());
         entity.setQuantity(requestDto.getQuantity());
         entity.setId(requestDto.getId());
+        entity.setVersion(0L);
         return entity;
     }
 

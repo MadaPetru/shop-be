@@ -93,11 +93,13 @@ class ProductServiceImplTest {
         var expectedResponse = ProductDataProvider.createUpdateProductResponse();
         var fileNames = request.getFileNames();
         when(productRepository.save(entity)).thenReturn(entity);
+        when(productRepository.findById(entity.getId())).thenReturn(Optional.of(entity));
         when(imageRepository.findByNameIn(fileNames)).thenReturn(IMAGES);
 
         var actualResponse = classUnderTest.updateProduct(request);
 
         verify(productRepository, times(1)).save(entity);
+        verify(productRepository, times(1)).findById(entity.getId());
         verify(imageRepository, times(1)).findByNameIn(fileNames);
         assertEquals(actualResponse.getPrice(), expectedResponse.getPrice());
         assertEquals(actualResponse.getQuantity(), expectedResponse.getQuantity());

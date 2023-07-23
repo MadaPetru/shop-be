@@ -93,5 +93,6 @@ allprojects {
         runtimeOnly libs.jwt.impl
         runtimeOnly libs.jwt.jackson
         implementation libs.jwt.api
+        implementation libs.retry
     }
 }
