@@ -31,6 +31,7 @@ dependencyResolutionManagement {
             library('jakarta','jakarta.persistence:jakarta.persistence-api:3.0.0')
             library('hibernate','org.hibernate:hibernate-core:6.1.7.Final')
             library('retry','org.springframework.retry:spring-retry:2.0.2')
+            library('core','org.springframework:spring-core:6.0.11')
             library('starter-security','org.springframework.boot','spring-boot-starter-security').withoutVersion()
             library('jwt-impl','io.jsonwebtoken','jjwt-impl').versionRef('jwt')
             library('jwt-api','io.jsonwebtoken','jjwt-api').versionRef('jwt')

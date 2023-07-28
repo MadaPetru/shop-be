@@ -14,6 +14,7 @@ dependencies {
     api libs.validation
     api libs.actuator
     api libs.jpa
+    api libs.core
 }
 project(":common") {
     sonar {
