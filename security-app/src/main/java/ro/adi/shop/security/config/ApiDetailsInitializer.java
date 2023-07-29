@@ -9,7 +9,8 @@ import java.util.Map;
 @UtilityClass
 public class ApiDetailsInitializer {
 
-    private static final String LOGIN_API_ID = "POST/users/login";
+    private static final String LOGIN_API_ID_POST = "POST/users/login";
+    private static final String LOGIN_API_ID_OPTIONS = "OPTIONS/users/login";
     private static final String SEARCH_PRODUCTS_API_ID_OPTIONS = "OPTIONS/products/search";
     private static final String SEARCH_PRODUCTS_API_ID_POST = "POST/products/search";
     private static final Map<String, ApiDetails> apiDetailsMap = new HashMap<>();
@@ -17,7 +18,8 @@ public class ApiDetailsInitializer {
     static {
         var detailsForLoginApi = getApiDetailsForLoginEndpoint();
         var detailsForSearchProductsEndpoint = getApiDetailsForSearchProductsEndpoint();
-        apiDetailsMap.put(LOGIN_API_ID, detailsForLoginApi);
+        apiDetailsMap.put(LOGIN_API_ID_POST, detailsForLoginApi);
+        apiDetailsMap.put(LOGIN_API_ID_OPTIONS, detailsForLoginApi);
         apiDetailsMap.put(SEARCH_PRODUCTS_API_ID_OPTIONS, detailsForSearchProductsEndpoint);
         apiDetailsMap.put(SEARCH_PRODUCTS_API_ID_POST, detailsForSearchProductsEndpoint);
     }
