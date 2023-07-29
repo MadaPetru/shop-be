@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 import ro.adi.shop.security.DeviceActivityFilter;
+import ro.adi.shop.security.ExceptionHandlerFilter;
 import ro.adi.shop.security.JwtAuthenticationFilter;
 
 @Configuration
@@ -24,6 +25,7 @@ public class SpringSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final DeviceActivityFilter deviceActivityFilter;
+    private final ExceptionHandlerFilter exceptionHandlerFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,6 +41,7 @@ public class SpringSecurityConfig {
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(deviceActivityFilter, WebAsyncManagerIntegrationFilter.class)
+                .addFilterBefore(exceptionHandlerFilter, DeviceActivityFilter.class)
                 .build();
     }
 
