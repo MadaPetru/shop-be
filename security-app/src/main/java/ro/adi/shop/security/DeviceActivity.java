@@ -11,7 +11,7 @@ import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeviceActivityRegistration {
+public class DeviceActivity {
 
     public static final byte MAX_RETRIES = 5;
 

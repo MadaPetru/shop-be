@@ -18,57 +18,69 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static ro.adi.shop.security.DeviceActivityRegistration.MAX_RETRIES;
+import static ro.adi.shop.security.DeviceActivity.MAX_RETRIES;
 
 @Component
 @Order(0)
 public class DeviceActivityFilter extends OncePerRequestFilter {
 
-    private final Map<String, DeviceActivityRegistration> userActivityRegistrationByRemoteAddress = new HashMap<>();
+    private final Map<String, DeviceActivity> deviceActivityByRemoteAddress = new HashMap<>();
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         var remoteAddr = request.getRemoteAddr();
         checkIfDeviceHasValidRequest(request);
-        var deviceActivity = createOrUpdateDeviceActivityRegistration(remoteAddr);
-        resetIfNeededTheRetriesForDevice(deviceActivity, remoteAddr);
-        checkIfDeviceIsValidToCallTheApi(deviceActivity);
+        createOrUpdateDeviceActivityRegistration(remoteAddr);
+        var isReset = isTheRetriesForDeviceReset(remoteAddr);
+        if (!isReset) checkIfDeviceIsValidToCallTheApi(remoteAddr);
+        else createDeviceActivity(remoteAddr);
         chain.doFilter(request, response);
     }
 
-    private DeviceActivityRegistration createOrUpdateDeviceActivityRegistration(String address) {
+    private void createOrUpdateDeviceActivityRegistration(String address) {
 
-        var deviceAlreadyRegistered = userActivityRegistrationByRemoteAddress.containsKey(address);
+        var deviceAlreadyRegistered = deviceActivityByRemoteAddress.containsKey(address);
         if (deviceAlreadyRegistered) {
-            var deviceActivity = userActivityRegistrationByRemoteAddress.get(address);
-            var retries = (byte) (deviceActivity.getRetries() + 1);
-            deviceActivity.setRetries(retries);
-            return deviceActivity;
+            updateDeviceActivity(address);
+            return;
         }
-        var newDeviceActivity = new DeviceActivityRegistration();
-        newDeviceActivity.setCreatedFirstRequest(Instant.now());
-        newDeviceActivity.setRetries((byte) 1);
-        userActivityRegistrationByRemoteAddress.put(address, newDeviceActivity);
-        return newDeviceActivity;
+        createDeviceActivity(address);
     }
 
-    private void checkIfDeviceIsValidToCallTheApi(DeviceActivityRegistration deviceActivity) {
+    private void updateDeviceActivity(String address) {
+        var deviceActivity = deviceActivityByRemoteAddress.get(address);
+        var retries = (byte) (deviceActivity.getRetries() + 1);
+        deviceActivity.setRetries(retries);
+    }
 
+    private void createDeviceActivity(String address) {
+        var newDeviceActivity = new DeviceActivity();
+        newDeviceActivity.setCreatedFirstRequest(Instant.now());
+        newDeviceActivity.setRetries((byte) 1);
+        deviceActivityByRemoteAddress.put(address, newDeviceActivity);
+    }
+
+    private void checkIfDeviceIsValidToCallTheApi(String remoteAddress) {
+
+        var deviceActivity = this.deviceActivityByRemoteAddress.get(remoteAddress);
         var retries = deviceActivity.getRetries();
         if (retries > MAX_RETRIES) throw new RetriesExceededException("Exceeded retries!");
     }
 
-    private void resetIfNeededTheRetriesForDevice(DeviceActivityRegistration deviceActivity, String remoteAddress) {
+    private boolean isTheRetriesForDeviceReset(String remoteAddress) {
 
+        var deviceActivity = this.deviceActivityByRemoteAddress.get(remoteAddress);
         var startMakingRequests = deviceActivity.getCreatedFirstRequest();
-        var timeElapsed = Duration.between(Instant.now(), startMakingRequests).toMinutes();
-        if (timeElapsed > 60) resetDeviceActivity(remoteAddress);
+        var timeElapsed = Duration.between(startMakingRequests, Instant.now()).toMinutes();
+        var needToBeReset = timeElapsed > 60;
+        if (needToBeReset) resetDeviceActivity(remoteAddress);
+        return needToBeReset;
     }
 
     private void resetDeviceActivity(String remoteAddress) {
 
-        this.userActivityRegistrationByRemoteAddress.remove(remoteAddress);
+        this.deviceActivityByRemoteAddress.remove(remoteAddress);
     }
 
     private void checkIfDeviceHasValidRequest(ServletRequest request) {
