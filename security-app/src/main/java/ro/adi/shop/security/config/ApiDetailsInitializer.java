@@ -12,7 +12,6 @@ public class ApiDetailsInitializer {
     private static final String LOGIN_API_ID = "POST/users/login";
     private static final String SEARCH_PRODUCTS_API_ID_OPTIONS = "OPTIONS/products/search";
     private static final String SEARCH_PRODUCTS_API_ID_POST = "POST/products/search";
-
     private static final Map<String, ApiDetails> apiDetailsMap = new HashMap<>();
 
     static {
@@ -24,6 +23,7 @@ public class ApiDetailsInitializer {
     }
 
     public Map<String, ApiDetails> getApiDetailsMappedById() {
+
         return apiDetailsMap;
     }
 

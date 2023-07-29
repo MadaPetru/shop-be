@@ -43,6 +43,7 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
     }
 
     private void initializeValuesForCorrespondingRequestDetails(HttpServletRequest request) {
+
         var uri = request.getRequestURI();
         var method = request.getMethod();
         var id = method + uri;
@@ -62,12 +63,14 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
     }
 
     private void updateDeviceActivity(String address) {
+
         var deviceActivity = deviceActivityByRemoteAddress.get(address);
         var retries = (byte) (deviceActivity.getRetries() + 1);
         deviceActivity.setRetries(retries);
     }
 
     private void createDeviceActivity(String address) {
+
         var newDeviceActivity = new DeviceActivity();
         newDeviceActivity.setCreatedFirstRequest(Instant.now());
         newDeviceActivity.setRetries((byte) 1);
