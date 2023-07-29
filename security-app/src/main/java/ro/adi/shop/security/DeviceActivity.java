@@ -13,8 +13,6 @@ import java.time.Instant;
 @AllArgsConstructor
 public class DeviceActivity {
 
-    public static final byte MAX_RETRIES = 5;
-
     private Instant createdFirstRequest;
     private byte retries;
 }

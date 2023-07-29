@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ro.adi.shop.auth.exception.InvalidRequestException;
 import ro.adi.shop.auth.exception.RetriesExceededException;
+import ro.adi.shop.security.config.ApiDetails;
+import ro.adi.shop.security.config.ApiDetailsInitializer;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -18,17 +20,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static ro.adi.shop.security.DeviceActivity.MAX_RETRIES;
-
 @Component
 @Order(0)
 public class DeviceActivityFilter extends OncePerRequestFilter {
 
     private final Map<String, DeviceActivity> deviceActivityByRemoteAddress = new HashMap<>();
+    private final Map<String, ApiDetails> apiDetailsById = ApiDetailsInitializer.getApiDetailsMappedById();
+    private byte maxRetries;
+    private byte minutesToBeBlocked;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
+        initializeValuesForCorrespondingRequestDetails(request);
         var remoteAddr = request.getRemoteAddr();
         checkIfDeviceHasValidRequest(request);
         createOrUpdateDeviceActivityRegistration(remoteAddr);
@@ -36,6 +40,15 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
         if (!isReset) checkIfDeviceIsValidToCallTheApi(remoteAddr);
         else createDeviceActivity(remoteAddr);
         chain.doFilter(request, response);
+    }
+
+    private void initializeValuesForCorrespondingRequestDetails(HttpServletRequest request) {
+        var uri = request.getRequestURI();
+        var method = request.getMethod();
+        var id = method + uri;
+        var apiDetails = apiDetailsById.get(id);
+        maxRetries = apiDetails.getApiRestriction().getMaxRetries();
+        minutesToBeBlocked = apiDetails.getApiRestriction().getMinutesToBeBlocked();
     }
 
     private void createOrUpdateDeviceActivityRegistration(String address) {
@@ -65,7 +78,7 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
 
         var deviceActivity = this.deviceActivityByRemoteAddress.get(remoteAddress);
         var retries = deviceActivity.getRetries();
-        if (retries > MAX_RETRIES) throw new RetriesExceededException("Exceeded retries!");
+        if (retries > maxRetries) throw new RetriesExceededException("Exceeded retries!");
     }
 
     private boolean isTheRetriesForDeviceReset(String remoteAddress) {
@@ -73,9 +86,9 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
         var deviceActivity = this.deviceActivityByRemoteAddress.get(remoteAddress);
         var startMakingRequests = deviceActivity.getCreatedFirstRequest();
         var timeElapsed = Duration.between(startMakingRequests, Instant.now()).toMinutes();
-        var needToBeReset = timeElapsed > 60;
-        if (needToBeReset) resetDeviceActivity(remoteAddress);
-        return needToBeReset;
+        var isDeviceWillBeReset = timeElapsed > minutesToBeBlocked;
+        if (isDeviceWillBeReset) resetDeviceActivity(remoteAddress);
+        return isDeviceWillBeReset;
     }
 
     private void resetDeviceActivity(String remoteAddress) {
