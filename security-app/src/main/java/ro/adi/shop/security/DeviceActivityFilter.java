@@ -32,6 +32,11 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
+        var isEndpointNeededToBeCheckedAndRestrictedForNumbersOfRequestsMade = isEndpointNeededToBeCheckedAndRestrictedForNumbersOfRequestsMade(request);
+        if (!isEndpointNeededToBeCheckedAndRestrictedForNumbersOfRequestsMade){
+            chain.doFilter(request, response);
+            return;
+        }
         initializeValuesForCorrespondingRequestDetails(request);
         var remoteAddr = request.getRemoteAddr();
         checkIfDeviceHasValidRequest(request);
@@ -40,6 +45,11 @@ public class DeviceActivityFilter extends OncePerRequestFilter {
         if (!isReset) checkIfDeviceIsValidToCallTheApi(remoteAddr);
         else createDeviceActivity(remoteAddr);
         chain.doFilter(request, response);
+    }
+
+    private boolean isEndpointNeededToBeCheckedAndRestrictedForNumbersOfRequestsMade(HttpServletRequest request) {
+
+        return apiDetailsById.containsKey(request.getMethod() + request.getRequestURI());
     }
 
     private void initializeValuesForCorrespondingRequestDetails(HttpServletRequest request) {
