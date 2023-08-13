@@ -6,18 +6,12 @@ CREATE TABLE IF NOT EXISTS "user"
     password VARCHAR(255)
 );
 
-ALTER TABLE "user"
-    owner TO adi;
-
 CREATE TABLE IF NOT EXISTS "role"
 (
     id   bigint NOT NULL
         PRIMARY KEY,
     granted_role VARCHAR(255)
 );
-
-ALTER TABLE role
-    owner TO adi;
 
 CREATE TABLE IF NOT EXISTS user_roles
 (

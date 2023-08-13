@@ -6,9 +6,6 @@ CREATE TABLE IF NOT EXISTS image
     path VARCHAR(255)
 );
 
-ALTER TABLE image
-    owner TO adi;
-
 CREATE TABLE IF NOT EXISTS product
 (
     id       bigint NOT NULL
@@ -17,9 +14,6 @@ CREATE TABLE IF NOT EXISTS product
     price    REAL,
     quantity INTEGER
 );
-
-ALTER TABLE product
-    owner TO adi;
 
 CREATE TABLE IF NOT EXISTS product_images
 (
