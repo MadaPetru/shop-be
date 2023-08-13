@@ -1,7 +1,6 @@
 version: '3.8'
 services:
   shop_be:
-    image: caleamare/shop_be:v1
     container_name: shop_be
     hostname: shop_be
     restart: on-failure
