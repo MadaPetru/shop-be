@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: prod
 #this is used to pass the headers from request that are handle by nginx using https protocol
 server:
   forward-headers-strategy: framework

@@ -36,4 +36,4 @@ RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
 RUN ./gradlew clean build -x test
 
 # Specify the entry point command to run the application
-CMD ["java", "-Dspring.profiles.active=local-docker", "-jar", "shop-app/build/libs/shop-app-1.0.0.jar"]
+CMD ["java", "-Dspring.profiles.active=prod", "-jar", "shop-app/build/libs/shop-app-1.0.0.jar"]
