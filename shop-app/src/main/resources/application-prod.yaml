@@ -41,4 +41,4 @@ server:
   port: 8080
 global-configurations:
   images:
-    path: C:\Users\Adi\Desktop\saved-images
+    path: /c/Users/Adi/Desktop/saved-images/
