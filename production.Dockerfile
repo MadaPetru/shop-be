@@ -1,7 +1,7 @@
 # Use a base image with Java and Gradle
 FROM amazoncorretto:17
 
-ARG ENV
+ARG ENV='prod'
 
 # Set the working directory
 WORKDIR /app
