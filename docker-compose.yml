@@ -9,6 +9,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+      args:
+        ENV : local
     networks:
       - shop_be
     volumes:
