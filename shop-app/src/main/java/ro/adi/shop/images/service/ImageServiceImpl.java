@@ -40,13 +40,13 @@ public class ImageServiceImpl implements ImageService {
             createFileOnDiskOfLocalMachine(multipartFile, pathFile);
             createImageEntity(fileName, pathFile);
         } catch (FilenameInvalidException e) {
-            log.error("Saving multipart file: {} with exception: {}", multipartFile, e.getMessage());
+            log.error("Saving multipart file: {} with exception: {}", multipartFile.getOriginalFilename(), e.getMessage());
             throw new FilenameInvalidException(e.getMessage());
         } catch (Exception e) {
             log.error("Error at saving multipart file " + e.getMessage());
             return;
         }
-        log.info("Saved  multipart file : {} successfully", multipartFile);
+        log.info("Saved  multipart file : {} successfully", multipartFile.getOriginalFilename());
     }
 
     private String getFilename(MultipartFile multipartFile) {
