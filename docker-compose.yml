@@ -3,18 +3,17 @@ services:
   shop_be:
     container_name: shop_be
     hostname: shop_be
-    restart: on-failure
     ports:
       - '8080:8080'
     build:
       dockerfile: Dockerfile
       context: .
       args:
-        ENV : local
+        ENV : local-docker
     networks:
       - shop_be
     volumes:
-      - saved-images:/c/Users/Adi/Desktop/saved-images
+      - saved-images:/c/Users/Public/Desktop/saved-images
 volumes:
   saved-images:
     name: saved-images
